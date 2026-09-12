@@ -10,7 +10,7 @@ Quote currency units = Values of the trade in the quote currency. Ie USDT
 
 Timestamps in unix time, can cast to datetime if we want
 
-Native contracts 8.959318e6
+Native contracts 8.959318e6 (8959318)
 
 Base asset units 895.9318
 

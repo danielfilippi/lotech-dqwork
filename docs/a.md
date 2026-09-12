@@ -16,12 +16,16 @@ Lots of timestamp dupes
     Ingress, our own system, not necessarily bad. ~75% of rows involved
     transaction/publish, possible if timestamps are batched. Same number of rows involved too looks intentional. Or from the same venue ?
 
-No repeated BBO states
+No consecutive repeated BBO states
 
-Overall not enough evidence for duped data
+There are rows where we see the same exact data, but different ingress tss and sequence id
+    flag any identical occurrence after the first
 
 Even after ordering by seq id.  the timestamps are not monotonic
     For basic ordering use seq id. For timing analysis, keep timestamp order anomalies flagged
+We see that publish and transaction ts are the worst offenders
+    They reverse 55 times with a max of ~89 mins
+ingress  isnt as severe
 
 Negative number check, pass
 Timestamp sanity, pass
@@ -29,6 +33,9 @@ Timestamp sanity, pass
 High (ingress_ts - publish_ts) latency at times
     Flag p95/p99 rows. 
     Flag >1s in case of any latency sensitive use cases
+
+Checking these >1s delay rows we see that 58/59 of them are actually repeated data
+    repeated a quotes timestamps, prices and quantities
 
 Few null values present. In bid/ask price/quantity
     Classify these rows as it could just be a one sided market
@@ -42,7 +49,16 @@ Spread outliers
     p99 spread = 0.15%, Max spread = 6.42%
     Flag rows
 
-Implausible price jumps not found
+Find implausible price jumps
+    identify biggest % movers
+    look for any jumps/reversals around the top move
+        95072669 looks strange
+            crossed book
+            qtys collaps from millions, to 6 and 5
+            pruces return to 25.92/25.94 a second later
+            already flagged by crossed book flag though, so lets rerun but exclude quotes we've already caught
+        we see a candidate at 6:08 where quantities collapse again, and then things are restored 163ms later
+            manuallyl flagged as suspicious
 
 Time gaps in charted data
 
@@ -67,20 +83,14 @@ wow. integer overflow
         calculated value should be <60
         8:08 = 488
 
-        In polars dt.hour can produce int8s (no larger than 127)
+        In polars, dt.hour can produce int8s (no larger than 127)
         so we cast it to int32
 
         (probably) not an intended data quality issue but an important thing to remember nonetheless
 
 
-Prior chart with all flagged anomalies removed!
-cleaner / visually stable / suitable for downstream BBO calculations
-
-I see one more possible anomaly near 06?
-
-Isolate it (as it's the biggest individual move)
-
-Its two-sided, not crossed/locked, not a spread outlier, has normal capture latency, and no large time gap. I do not flag it as a data quality anomaly based on the rules we have established.
+Prior chart with selected flags excluded
+cleaner / visually stable 
 
 
 
@@ -121,12 +131,15 @@ No nulls except for transation nulls, and other_data fully null
 Only "buy" side
     Intentional? Or not? I would need clarification here
 
-Flag extreme values
+Take a look at the lowest price trades
+    Found three suspicious trades (2754, 2755, 5588) priced well below neighbouring trades, with prices returning shortly afterwards. review these
 
 # Joined data checks - a_joined
 
-Joined and charted
+Joined and charted to illustrate the filtering
 
-After applying our top of book flags and removing cross-file trade/BBO anomalies, the remaining trades sit cleanly inside the bbbo. This suggests our flags are isolating unusual records while preserving the normal market structure of the day.
+Apply all our flags and exlude these from the charting, 
+    the remaining trades sit cleanly inside the bbo. 
+    This suggests our flags are isolating unusual records while preserving the normal market structure of the day
 
 But we should remember that this does not prove every retained row is correct.
