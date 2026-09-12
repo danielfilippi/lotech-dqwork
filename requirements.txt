@@ -1,0 +1,10 @@
+polars==1.44.2
+pyarrow==25.0.1
+jupyterlab==4.6.3
+ipykernel==7.3.0
+nbformat==5.11.1
+nbconvert==7.17.1
+matplotlib==3.11.1
+seaborn==0.13.2
+plotly==7.0.0
+pandas==3.0.5
