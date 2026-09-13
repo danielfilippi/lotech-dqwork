@@ -10,7 +10,7 @@ Thank you
 
 ## Running the notebooks
 
-Requires Python 3.13. I have not included the parquet files in the repo because this is not my data
+Requires Python 3.13. I have not included the parquet files in the repo because this is not my data. Please put them in /parquets
 
 run in powershell at root :
 
