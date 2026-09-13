@@ -20,6 +20,9 @@ Very tight and stable spread
     can flag p99 if we want. telemetry i guess
 
 Ingress ts not monotonic relative to seq id. 
+    32 reversals, max 17us
+
+We cannot measure capture latency as we have no publish ts or transaction ts
 
 Clean file. Not much to add
     

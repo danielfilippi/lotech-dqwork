@@ -24,7 +24,10 @@ Plotted data looks okay
     So these are duplicate trade events 
         flag these (either after first occurrence, or just any trade that is duplicated at all) I chose any duplicated trade. So all rows are flagged here
 
+https://docs.bitfinex.com/reference/ws-public-trades
+    Bitfinex separates "te" for trade execution and "tu" for trade updates. The source of the duplication could be this
+
 copy 0 is published almost immediately after transaction ts  ~1-5ms
 copy 1 published again later  ~18-106ms
 
-Median gap between duplicate publish ts is 49ms, with a max of 104ms
+Median gap between duplicate publish ts is 49ms, with a max of 104ms 

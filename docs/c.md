@@ -2,16 +2,35 @@
 
 ## Data Quality
 
-Different symbols.
+Different symbols. There is no "S|" prefixing them, though, for what it's worth
 Count them first, 18. Filename says 20
 
 Plot their mids. Ok
 
-Looks ok already and 0 nulls
+Looks ok already and 0 null cells
 
 Publish ts, transaction ts, ingress ts monotonic relative to seq id? and for each symbol?
 Y N N
-Behaves perfectly here too
+quantify the reversals
+capture timestamps reversals less severe
+transaction timestamps reverse 45k times, by up to 218ms
+
+
+Exact repeated rows not found
+There are repeated quotes however, ~322k
+    not confirmed duplicate events
+
+Lets look at (ingress ts - publish ts) latency
+    max is ~2.9 seconds
+    lets look at all rows where latency >1 second
+        they seem to almsot all be captured at 15:27. and it is affecting 17 instruments
+        some kind of shared issue here. lets flag these rows
+            we would like to find out the root cause though somehow
+
+looking at the publish ts - transaction ts latency for 15:26, 27 and 28
+    we see a concentration at 27 again
+    some kind of congestion occurring maybe? but we cant determine anything with what we have
+
 
 1030 Crossed book
 26814 Locked
@@ -48,6 +67,3 @@ MSFT max 0.093%
 
 flag p99 outliers per symbol. then count
 
-this data looks okay. you dont really have to use my flags but you should probably have something monitoring them and triggering alerts
-
-happy to continue
