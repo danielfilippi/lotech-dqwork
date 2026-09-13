@@ -1,5 +1,7 @@
 # Exercise A
 
+Prices are HKD per ETF unit, quantities are ETF units. For both quotes and trades.
+
 # Individual file checks
 
 Comprehensive and boring is key
