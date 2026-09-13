@@ -1,5 +1,7 @@
 # Exercise D
 
+Prices are USDT per BTC quantities are BTC
+
 ## Reconstruction
 
 Transaction ts fully null

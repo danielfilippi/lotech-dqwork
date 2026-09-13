@@ -1,5 +1,7 @@
 # Exercise F
 
+Prices are USDT per ETH quantities are ETH
+
 ## Data quality
 
 Exercise E doesn't exist (missing part of sequence)

@@ -1,5 +1,7 @@
 # Exercise C
 
+Prices are USD per share, quantities are shares
+
 ## Data Quality
 
 Different symbols. There is no "S|" prefixing them, though, for what it's worth

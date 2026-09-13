@@ -139,7 +139,7 @@ Take a look at the lowest price trades
 Joined and charted to illustrate the filtering
 
 Apply all our flags and exlude these from the charting, 
-    the remaining trades sit cleanly inside the bbo. 
+    the remaining trades sit cleanly inside the bbo. (because we removed the ones outside of it)
     This suggests our flags are isolating unusual records while preserving the normal market structure of the day
 
 But we should remember that this does not prove every retained row is correct.

@@ -12,9 +12,9 @@ Timestamps in unix time, can cast to datetime if we want
 
 Native contracts 8.959318e6 (8959318)
 
-Base asset units 895.9318
+Base asset units 895.9318 BTC
 
-Quote currency units 6.6923e7
+Quote currency units 6.6923e7 USDT
 
 ## Validation
 

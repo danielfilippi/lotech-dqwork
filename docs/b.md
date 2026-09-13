@@ -1,5 +1,7 @@
 # Exercise B
 
+Prices and microprice are USDso per WETH, quantities are WETH
+
 ## Data Quality
 
 Looked at data first and saw transaction and publish ts are all NULL (double checked in code)

@@ -1,5 +1,7 @@
 # Exercise G
 
+Prices are USD per BTC quantities are BTC
+
 ## Data Quality
 
 Small file
